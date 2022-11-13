@@ -5,7 +5,9 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/apps/bookstore",
         "index": "apps/bookstore/src/index.html",
@@ -17,7 +19,10 @@
           "apps/bookstore/src/favicon.ico",
           "apps/bookstore/src/assets"
         ],
-        "styles": ["apps/bookstore/src/styles.scss"],
+        "styles": [
+          "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+          "apps/bookstore/src/styles.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -82,7 +87,9 @@
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/bookstore"],
+      "outputs": [
+        "coverage/apps/bookstore"
+      ],
       "options": {
         "jestConfig": "apps/bookstore/jest.config.ts",
         "passWithNoTests": true

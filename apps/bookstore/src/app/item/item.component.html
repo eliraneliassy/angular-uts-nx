@@ -1,0 +1,10 @@
+<div class="item" *ngIf="item">
+  <div class="title">{{ item.title }}</div>
+  <div class="image-url">
+    <img [src]="item.previewImgUrl">
+  </div>
+
+  <button (click)="addToCartClicked()">Add to cart</button>
+
+  <button class="remove-from-cart" (click)="removeFromCartClicked()">Remove from cart</button>
+</div>
