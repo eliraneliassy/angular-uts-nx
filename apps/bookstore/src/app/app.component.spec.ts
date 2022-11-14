@@ -23,11 +23,17 @@ describe('AppComponent', () => {
 
     booksService = {
       getBooks: (term: string): Observable<Item[]> =>
-        of(ITEMS_MOCK)
-          .pipe(
-            tap(console.log),
-            delay(1000)
-        )
+      new Observable((subscriber) => {
+        setTimeout(() => {
+          subscriber.next(ITEMS_MOCK),
+          subscriber.complete()
+        }, 1000)
+      })
+        // of(ITEMS_MOCK)
+        //   .pipe(
+        //     tap(console.log),
+        //     delay(1000)
+        // )
     } as any;
 
     itemsMock = ITEMS_MOCK;
@@ -68,7 +74,7 @@ describe('AppComponent', () => {
   it('should show items - waitForAsync', waitForAsync(() => {
     const fixture = TestBed.createComponent(AppComponent);
 
-    
+    fixture.detectChanges();
     fixture.whenStable().then(() => {
       fixture.detectChanges();
       const items: HTMLDivElement = fixture.debugElement.query(By.css('.items')).nativeElement;
@@ -83,8 +89,11 @@ describe('AppComponent', () => {
 
   it('should show items - fakeAsync', fakeAsync(() => {
     const fixture = TestBed.createComponent(AppComponent);
-    tick(2000);
+    fixture.detectChanges();
+    // tick(1000);
+    
     flush();
+    
     fixture.detectChanges();
 
     const items: HTMLDivElement = fixture.debugElement.query(By.css('.items')).nativeElement;

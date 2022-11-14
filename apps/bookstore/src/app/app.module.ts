@@ -9,6 +9,7 @@ import { ChangeColorDirective } from './change-color.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ItemPreviewComponent } from './item-preview/item-preview.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MySwitchComponent } from './my-switch/my-switch.component';
 
 @NgModule({
   declarations: [
@@ -17,9 +18,15 @@ import { MatDialogModule } from '@angular/material/dialog';
     DiscountPipe,
     ChangeColorDirective,
     ItemPreviewComponent,
+    MySwitchComponent,
   ],
-  imports: [BrowserModule, HttpClientModule, BrowserAnimationsModule, MatDialogModule],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
