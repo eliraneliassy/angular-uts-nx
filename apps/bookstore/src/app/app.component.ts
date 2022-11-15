@@ -3,7 +3,7 @@ import { BooksService } from './books.service';
 import { Component } from '@angular/core';
 import { delay, Observable, tap } from 'rxjs';
 import { Item } from './item/item.interface';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { json } from 'stream/consumers';
 
 @Component({
@@ -22,7 +22,8 @@ export class AppComponent {
 
   }
 
-  previewItem(item: Item) {
-    this.dialog.open(ItemPreviewComponent, { data: item });
+  previewItem(item: Item, config?: MatDialogConfig) {
+    const myConfig: MatDialogConfig = {...config, data: item};
+    this.dialog.open(ItemPreviewComponent, myConfig);
   }
 }

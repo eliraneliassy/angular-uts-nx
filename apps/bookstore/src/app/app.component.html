@@ -1,5 +1,5 @@
 
-<angular-uts-workshop-nx-my-switch></angular-uts-workshop-nx-my-switch>
+
 
 <div *ngIf="books$ | async as books" class="items">
     <app-item [item]="book" *ngFor="let book of books" (click)="previewItem(book)" class="item"></app-item>

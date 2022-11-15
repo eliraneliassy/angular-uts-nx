@@ -10,6 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ItemPreviewComponent } from './item-preview/item-preview.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MySwitchComponent } from './my-switch/my-switch.component';
+import { MyPopupComponent } from './my-popup/my-popup.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { MySwitchComponent } from './my-switch/my-switch.component';
     ChangeColorDirective,
     ItemPreviewComponent,
     MySwitchComponent,
+    MyPopupComponent,
   ],
   imports: [
     BrowserModule,

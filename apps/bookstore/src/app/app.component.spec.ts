@@ -11,6 +11,11 @@ import { MatDialogConfig } from '@angular/material/dialog';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 import { delay, of, Observable, tap } from 'rxjs';
+import { HarnessLoader } from '@angular/cdk/testing';
+import { TestbedHarnessEnvironment } from '@angular/cdk/testing/testbed';
+import { MatDialogHarness } from '@angular/material/dialog/testing';
+
+
 
 
 describe('AppComponent', () => {
@@ -23,17 +28,17 @@ describe('AppComponent', () => {
 
     booksService = {
       getBooks: (term: string): Observable<Item[]> =>
-      new Observable((subscriber) => {
-        setTimeout(() => {
-          subscriber.next(ITEMS_MOCK),
-          subscriber.complete()
-        }, 1000)
-      })
-        // of(ITEMS_MOCK)
-        //   .pipe(
-        //     tap(console.log),
-        //     delay(1000)
-        // )
+        new Observable((subscriber) => {
+          setTimeout(() => {
+            subscriber.next(ITEMS_MOCK),
+              subscriber.complete()
+          }, 1000)
+        })
+      // of(ITEMS_MOCK)
+      //   .pipe(
+      //     tap(console.log),
+      //     delay(1000)
+      // )
     } as any;
 
     itemsMock = ITEMS_MOCK;
@@ -49,6 +54,8 @@ describe('AppComponent', () => {
         { provide: BooksService, useValue: booksService }
       ]
     }).compileComponents();
+
+
   });
 
   it('should create the app', () => {
@@ -91,9 +98,9 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     // tick(1000);
-    
+
     flush();
-    
+
     fixture.detectChanges();
 
     const items: HTMLDivElement = fixture.debugElement.query(By.css('.items')).nativeElement;
@@ -123,6 +130,45 @@ describe('AppComponent', () => {
 
 
   });
+
+  it('should load harness for dialog', async () => {
+    const fixture = TestBed.createComponent(AppComponent);
+
+    fixture.detectChanges();
+
+    const loader: HarnessLoader = TestbedHarnessEnvironment.documentRootLoader(fixture);
+
+    fixture.componentInstance.previewItem(item);
+    const dialogs = await loader.getAllHarnesses(MatDialogHarness);
+    expect(dialogs.length).toBe(1);
+
+    expect(dialogs.length).toBe(1);
+
+  })
+
+  it('should be able to close dialog', async () => {
+    const fixture = TestBed.createComponent(AppComponent);
+
+    fixture.detectChanges();
+
+    const loader: HarnessLoader = TestbedHarnessEnvironment.documentRootLoader(fixture);
+
+    fixture.componentInstance.previewItem(item, {disableClose: true});
+    
+    let dialogs = await loader.getAllHarnesses(MatDialogHarness);
+
+    expect(dialogs.length).toBe(1);
+    await dialogs[0].close();
+
+    dialogs = await loader.getAllHarnesses(MatDialogHarness);
+    expect(dialogs.length).toBe(1);
+
+    // should be a noop since "disableClose" is set to "true".
+    await dialogs[0].close();
+    dialogs = await loader.getAllHarnesses(MatDialogHarness);
+    expect(dialogs.length).toBe(1);
+  });
+
 
 
 });
